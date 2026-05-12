@@ -1,0 +1,52 @@
+Assignment No-5
+
+Title:- JOIN Operations and Views
+Perform various types of JOIN operations to extract meaningful relationships between tables. Create and manage different database views.
+
+
+mysql> create database pr05; 
+ 
+mysql> use pr05; Database changed 
+ 
+mysql> create table student_info(Rollno int, Name varchar(20), Address varchar(20)); 
+ 
+mysql> create table student_marks(Rollno int, Marks int); 
+
+mysql> insert into student_info values(1,'Sachin','Nashik'),(2,'Rahul','Nashik'); 
+
+mysql> insert into student_info values(3,'Ravi','Pune'),(4,'Vedika','Pune'); 
+
+mysql> insert into student_marks values(3,900),(4,850); 
+
+mysql> insert into student_marks values(5,700),(6,750); 
+
+mysql> select * from student_marks; 
+
+mysql> select * from student_info; 
+
+mysql> select student_info.Rollno,Name, Address,Marks from student_info inner join student_marks on student_info.Rollno = student_marks.Rollno; 
+
+mysql> select student_info.Rollno,Name, Address,Marks from student_info left join student_marks on student_info.Rollno = student_marks.Rollno; 
+
+mysql> select student_info.Rollno,Name, Address,Marks from student_info right join student_marks on student_info.Rollno = student_marks.Rollno; 
+  
+mysql> select student_marks.Rollno,Name, Address,Marks from student_info right outer join student_marks on student_info.Rollno = student_marks.Rollno; 
+
+mysql> (select student_marks.Rollno,Name, Address,Marks from student_info left join student_marks on student_info.Rollno = student_marks.Rollno); 
+
+ mysql> (select student_marks.Rollno,Name, Address,Marks from student_info left join student_marks on student_info.Rollno = student_marks.Rollno) union  
+(select student_marks.Rollno,Name, Address,Marks from student_info right join student_marks on student_info.Rollno = student_marks.Rollno); 
+
+mysql> select * from student_info; 
+
+mysql> create view subject_teacher as select Rollno, Name from student_info; 
+Query OK, 0 rows affected (0.14 sec) 
+ 
+mysql> select * from subject_teacher; 
+
+mysql> select * from subject_teacher where Rollno<3; 
+
+mysql> select * from subject_teacher where Rollno>3; 
+ 
+ 
+

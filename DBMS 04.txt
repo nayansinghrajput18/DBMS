@@ -1,0 +1,57 @@
+Assignment No- 4
+
+Title: Aggregate Functions and Grouping
+Use aggregate functions along with GROUP BY and HAVING clauses to retrieve summarized data from the database
+
+
+Database changed
+mysql> desc student;
+
+mysql> INSERT INTO student VALUES
+    -> (1, 'Amit', 'DBMS', 78, 'Computer'),
+    -> (2, 'Neha', 'DBMS', 85, 'Computer'),
+    -> (3, 'Rahul', 'OS', 72, 'Computer'),
+    -> (4, 'Sneha', 'OS', 88, 'IT'),
+    -> (5, 'Pooja', 'DBMS', 91, 'IT'),
+    -> (6, 'Ravi', 'OS', 65, 'IT');
+
+mysql> select * from student;
+
+
+mysql> select dept, count(sid) as total_stud from student group by dept;
+
+
+mysql> SELECT subject, AVG(marks) AS Avg_Marks
+    -> FROM student
+    -> GROUP BY subject;
+
+mysql> SELECT dept,
+    -> MAX(Marks) AS Highest_Marks,
+    -> MIN(Marks) AS Lowest_Marks
+    -> FROM student
+    -> GROUP BY dept;
+
+mysql> SELECT dept , sum(marks) as sum_marks from student group by dept;
+
+mysql> SELECT dept, AVG(marks) AS Avg_Marks
+    -> FROM student
+    -> GROUP BY dept
+    -> HAVING AVG(marks) > 80;
+
+
+mysql> SELECT sid, name, marks
+    -> FROM student
+    -> ORDER BY marks ASC;
+
+mysql> SELECT sid, name, marks FROM student ORDER BY name ASC;
+
+mysql> SELECT sid, name, marks FROM student ORDER BY sid ASC;
+
+mysql> SELECT sid, name, marks FROM student ORDER BY sid DESC;
+
+mysql> SELECT sid, name, marks FROM student ORDER BY marks DESC;
+
+mysql> SELECT sid, name, marks FROM student ORDER BY name DESC;
+
+
+
