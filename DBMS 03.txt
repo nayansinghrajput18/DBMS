@@ -1,48 +1,70 @@
-Assignment No-3
 
-Title:- SQL Queries for Data Manipulation, Access Control, and Transactions Design and run SQL queries to demonstrate the following: 
-a) Data Manipulation (DML): Use SQL statements to INSERT, UPDATE, and DELETE     records. Apply arithmetic, logical, set operators, pattern matching, and string functions.
-b) Access Control (DCL): Use GRANT, REVOKE, and ROLE commands to manage  user access. 
-c) Transaction Control (TCL): Apply START TRANSACTION, COMMIT, ROLLBACK,  and SAVEPOINT commands to manage transactions.
- 
+from collections import deque
 
-mysql> use new1; Database changed 
-mysql> CREATE TABLE Book (Book_ID INT PRIMARY KEY,Book_Name VARCHAR(50),Author  VARCHAR(50),Price INT,Category VARCHAR(30)); 
- 
-mysql> CREATE TABLE Issued_Book (Book_Name VARCHAR(50)); 
- 
-mysql> INSERT INTO Book VALUES(1, 'Database Systems', 'Navathe', 500, 'Education'),(2, 
-'Operating System', 'Silberschatz', 650, 'Education'),(3, 'C Programming', 'Dennis Ritchie', 300, 'Programming'),(4, 'Python Basics', 'Guido', 400, 'Programming'); 
+grid = [
+    ['S', 0, 0, 'X'],
+    [0, 'X', 0, 0],
+    [0, 0, 0, 'X'],
+    ['X', 0, 0, 'G']
+]
 
-mysql> select * from Book; 
+rows = len(grid)
+cols = len(grid[0])
 
-mysql> UPDATE Book SET Price = Price + (Price * 0.10) WHERE Category = 'Programming'; 
+start = (0, 0)
+goal = (3, 3)
 
-mysql> select * from Book; 
+queue = deque([(start, [start])])
 
-mysql> DELETE FROM Book WHERE Price < 350; 
+visited = set()
+visited.add(start)
 
-mysql> select * from Book; 
+directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-mysql> SELECT Book_Name, Price, Price + 50 AS New_Price FROM Book; 
+print("Grid Navigation Begins\n")
 
-mysql> SELECT * FROM Book WHERE Category = 'Education' AND Price > 500; 
+final_path = None
 
-mysql> SELECT * FROM Book WHERE Book_Name LIKE 'D%'; 
+while queue:
 
-mysql> SELECT UPPER(Book_Name) AS Book_Upper,LOWER(Author) AS Author_Lower 
-FROM Book; 
+    current, path = queue.popleft()
 
-mysql> SELECT Book_Name, LENGTH(Book_Name) AS Name_Length FROM Book; 
+    print("Current Position:", current)
+    print("Visited:", visited)
 
-mysql> SELECT Book_Name FROM Book UNION SELECT Book_Name FROM Issued_Book; 
+    if current == goal:
+        final_path = path
+        print("\nGoal Reached!")
+        break
 
-mysql> SELECT Book_Name FROM Book INTERSECT SELECT Book_Name FROM 
-Issued_Book; 
+    for dr, dc in directions:
 
-mysql> SELECT Book_Name FROM Book EXCEPT SELECT Book_Name FROM 
-Issued_Book; 
+        nr = current[0] + dr
+        nc = current[1] + dc
 
-mysql>  
- 
- 
+        if 0 <= nr < rows and 0 <= nc < cols:
+
+            if grid[nr][nc] == 'X':
+                continue
+
+            if (nr, nc) in visited:
+                continue
+
+            visited.add((nr, nc))
+
+            queue.append(((nr, nc), path + [(nr, nc)]))
+
+print("\n=====================================")
+
+if final_path:
+    print("Path Found:")
+    print(final_path)
+else:
+    print("No path exists.")
+
+print("\nRational Behaviour Analysis")
+print("1. The agent remembers visited cells.")
+print("2. It never revisits explored locations.")
+print("3. It avoids obstacles.")
+print("4. It systematically searches for the goal.")
+print("Hence, it behaves as a Model-Based Intelligent Agent.")
