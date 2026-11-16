@@ -1,49 +1,31 @@
-Assignment No-2
 
-Title:- Write and execute SQL Data Definition Language (DDL) commands such as CREATE, ALTER, DROP, RENAME, and TRUNCATE to define and modify tables. Insert data into the tables and apply appropriate integrity constraints such as NOT NULL, UNIQUE, PRIMARY KEY, FOREIGN KEY, and CHECK.
+environment = {'A': 'Dirty', 'B': 'Dirty'}
+location = 'A'
 
+while True:
+    print("Current Location:", location)
+    print("Environment:", environment)
 
+    if environment['A'] == 'Clean' and environment['B'] == 'Clean':
+        print("Goal achieved! Both rooms are Clean")
+        break
 
-mysql> use new; Database changed 
-mysql> CREATE TABLE Department (Dept_ID INT PRIMARY KEY,Dept_Name VARCHAR(50) 
-UNIQUE NOT NULL); 
- 
-mysql> CREATE TABLE Student (Stud_ID INT PRIMARY KEY,Stud_Name VARCHAR(50) NOT 
-NULL,Age INT CHECK (Age >= 18),Email VARCHAR(100) UNIQUE,Dept_ID INT,FOREIGN 
-KEY (Dept_ID) REFERENCES Department(Dept_ID)); 
- 
-mysql> INSERT INTO Department VALUES(1, 'Computer Engineering'),(2, 'Information 
-Technology'),(3, 'Electronics'); 
- 
-mysql> select * from Department; 
- 
- 
-mysql> INSERT INTO Student VALUES(101, 'Amit Sharma', 20, 'amit@gmail.com', 1),(102, 
-'Neha Patil', 19, 'neha@gmail.com', 2),(103, 'Rahul Verma', 21, 'rahul@gmail.com', 1); 
+    if environment[location] == 'Dirty':
+        print("Action: SUCK")
+        environment[location] = 'Clean'
 
-mysql> select * from Student; 
+    else:
+        if location == 'A':
+            print("Action: MOVE RIGHT")
+            location = 'B'
+        else:
+            print("Action: MOVE LEFT")
+            location = 'A'
 
-mysql> ALTER TABLE Student ADD City VARCHAR(30); 
+    print("-" * 40)
 
-mysql> select * from Student; 
-
-mysql> RENAME TABLE Student TO Student_Details; 
-
-mysql> show tables; 
-
-mysql> DROP TABLE Student_Details; 
-
-mysql> CREATE TABLE Course (Course_ID INT PRIMARY KEY,Course_Name VARCHAR(50) 
-NOT NULL UNIQUE,Duration INT CHECK (Duration >= 1)); 
-
-mysql> show tables; 
-
-mysql> CREATE TABLE Student (Student_ID INT PRIMARY KEY,Student_Name VARCHAR(50) NOT NULL,Email VARCHAR(100) UNIQUE,Age INT CHECK (Age >= 
-18),Course_ID INT,FOREIGN KEY (Course_ID) REFERENCES Course(Course_ID)); 
- 
-mysql> show tables; 
-
-
- 
- 
-
+print("\nRational Behaviour Analysis")
+print("1. Cleans a room immediately if dirty")
+print("2. Moves only when the current room is already clean")
+print("3. Stops after both rooms are clean")
+print("Hence the agent behaves rationally for this environment")
